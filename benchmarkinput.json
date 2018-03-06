@@ -1,0 +1,45 @@
+{
+	"wrap": {
+		"settings": [{
+				"name": "set1",
+				"teragen": {
+					"-D mapreduce.map.memory.mb": "4096",
+					"-D mapred.map.tasks": "176",
+					"-D mapreduce.task.io.sort.mb": "1200"
+				},
+				"terasort": {
+					"-D mapreduce.map.memory.mb": "4096",
+					"-D mapreduce.task.io.sort.mb": "1200",
+					"-D mapreduce.reduce.memory.mb": "8192",
+					"-D mapreduce.reduce.tasks": "88"
+				},
+				"teravalidate": {
+					"-D mapreduce.map.memory.mb": "4096",
+					"-D mapreduce.task.io.sort.mb": "1200",
+					"-D mapreduce.reduce.memory.mb": "8192",
+					"-D mapreduce.reduce.tasks": "88"
+				}
+			},
+			{
+				"name": "set2",
+				"teragen": {
+					"-D mapreduce.map.memory.mb": "8192",
+					"-D mapred.map.tasks": "88",
+					"-D mapreduce.task.io.sort.mb": "2047"
+				},
+				"terasort": {
+					"-D mapreduce.map.memory.mb": "8192",
+					"-D mapreduce.task.io.sort.mb": "2047",
+					"-D mapreduce.reduce.memory.mb": "16384",
+					"-D mapreduce.reduce.tasks": "44"
+				},
+				"teravalidate": {
+					"-D mapreduce.map.memory.mb": "8192",
+					"-D mapreduce.task.io.sort.mb": "2047",
+					"-D mapreduce.reduce.memory.mb": "16384",
+					"-D mapreduce.reduce.tasks": "44"
+				}
+			}
+		]
+	}
+}
