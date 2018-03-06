@@ -5,19 +5,24 @@
 				"teragen": {
 					"-D mapreduce.map.memory.mb": "4096",
 					"-D mapred.map.tasks": "176",
-					"-D mapreduce.task.io.sort.mb": "1200"
+					"-D mapreduce.task.io.sort.mb": "1200",
+					"-D mapreduce.map.java.opts":"-Xmx3277m"
 				},
 				"terasort": {
 					"-D mapreduce.map.memory.mb": "4096",
 					"-D mapreduce.task.io.sort.mb": "1200",
 					"-D mapreduce.reduce.memory.mb": "8192",
-					"-D mapreduce.reduce.tasks": "88"
+					"-D mapreduce.reduce.tasks": "88",
+					"-D mapreduce.map.java.opts":"-Xmx3277m",
+					"-D mapreduce.reduce.java.opts":"-Xmx6553m"
 				},
 				"teravalidate": {
 					"-D mapreduce.map.memory.mb": "4096",
 					"-D mapreduce.task.io.sort.mb": "1200",
 					"-D mapreduce.reduce.memory.mb": "8192",
-					"-D mapreduce.reduce.tasks": "88"
+					"-D mapreduce.reduce.tasks": "88",
+					"-D mapreduce.map.java.opts":"-Xmx3277m",
+					"-D mapreduce.reduce.java.opts":"-Xmx6553m"
 				}
 			},
 			{
@@ -25,19 +30,24 @@
 				"teragen": {
 					"-D mapreduce.map.memory.mb": "8192",
 					"-D mapred.map.tasks": "88",
-					"-D mapreduce.task.io.sort.mb": "2047"
+					"-D mapreduce.task.io.sort.mb": "2047",
+					"-D mapreduce.map.java.opts":"-Xmx6553m"
 				},
 				"terasort": {
 					"-D mapreduce.map.memory.mb": "8192",
 					"-D mapreduce.task.io.sort.mb": "2047",
 					"-D mapreduce.reduce.memory.mb": "16384",
-					"-D mapreduce.reduce.tasks": "44"
+					"-D mapreduce.reduce.tasks": "44",
+					"-D mapreduce.map.java.opts":"-Xmx6553m",
+					"-D mapreduce.reduce.java.opts":"-Xmx13107m"
 				},
 				"teravalidate": {
 					"-D mapreduce.map.memory.mb": "8192",
 					"-D mapreduce.task.io.sort.mb": "2047",
 					"-D mapreduce.reduce.memory.mb": "16384",
-					"-D mapreduce.reduce.tasks": "44"
+					"-D mapreduce.reduce.tasks": "44",
+					"-D mapreduce.map.java.opts":"-Xmx6553m",
+					"-D mapreduce.reduce.java.opts":"-Xmx13107m"
 				}
 			}
 		]
