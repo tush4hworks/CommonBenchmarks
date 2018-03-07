@@ -50,9 +50,9 @@ def runTeraValidate(setname,options):
 
 def runTestDFSIO():
 	logger.info('+Running TestDFSIO')
-	runSystemCommand('time hadoop jar /usr/hdp/2.6.3.0-235/hadoop-mapreduce/hadoop-mapreduce-examples.jar TestDFSIO -write -nrFiles 10 -fileSize 1000','writeDFS')
-	runSystemCommand('time hadoop jar /usr/hdp/2.6.3.0-235/hadoop-mapreduce/hadoop-mapreduce-examples.jar TestDFSIO -read -nrFiles 10 -fileSize 1000','readDFS')
-	runSystemCommand('time hadoop jar /usr/hdp/2.6.3.0-235/hadoop-mapreduce/hadoop-mapreduce-examples.jar TestDFSIO -clean','cleanDFS')
+	runSystemCommand('time hadoop jar /usr/hdp/2.6.3.0-235/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-tests.jar TestDFSIO -write -nrFiles 10 -fileSize 1000','writeDFS')
+	runSystemCommand('time hadoop jar /usr/hdp/2.6.3.0-235/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-tests.jar TestDFSIO -read -nrFiles 10 -fileSize 1000','readDFS')
+	runSystemCommand('time hadoop jar /usr/hdp/2.6.3.0-235/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-tests.jar TestDFSIO -clean','cleanDFS')
 	logger.info('-Finished TestDFSIO')
 
 
