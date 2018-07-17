@@ -26,9 +26,9 @@ def runSystemCommand(cmd,outfile):
 			with open('History/'+'_'.join([outfile,getDateTime()]),'w+') as f:
 				f.write(e.output)
 
-def runTeraGen(setname,options):
+def runTeraGen(setname,jarloc,options):
 	logger.info('+Running teragen for '+setname)
-	runSystemCommand('time hadoop jar /usr/hdp/2.6.3.0-235/hadoop-mapreduce/hadoop-mapreduce-examples.jar teragen '+' '.join(['='.join([key,options[key]]) for key in options.keys()])+' 10000000000 /teraInput','_'.join([setname,'teragen']))
+	runSystemCommand('time hadoop jar {}/hadoop-mapreduce-examples.jar teragen '.format(jarloc)+' '.join(['='.join([key,options[key]]) for key in options.keys()])+' 10000000000 /teraInput','_'.join([setname,'teragen']))
 	logger.info('-Finished teragen for '+setname)
 
 def cleanTeraGenInput():
@@ -38,32 +38,33 @@ def cleanTeraGenInput():
 	runSystemCommand('hdfs dfs -rm -r /teraValidate','cleanTeraValidate')
 	logger.info('-Finished clean for '+setname)
 
-def runTeraSort(setname,options):
+def runTeraSort(setname,jarloc,options):
 	logger.info('+Running terasort for '+setname)
-	runSystemCommand('time hadoop jar /usr/hdp/2.6.3.0-235/hadoop-mapreduce/hadoop-mapreduce-examples.jar terasort '+' '.join(['='.join([key,options[key]]) for key in options.keys()])+' /teraInput /teraOutput','_'.join([setname,'terasort']))
+	runSystemCommand('time hadoop jar {}/hadoop-mapreduce-examples.jar terasort '.format(jarloc)+' '.join(['='.join([key,options[key]]) for key in options.keys()])+' /teraInput /teraOutput','_'.join([setname,'terasort']))
 	logger.info('-Finished terasort for '+setname)
 
-def runTeraValidate(setname,options):
+def runTeraValidate(setname,jarloc,options):
 	logger.info('+Running teravalidate for '+setname)
-	runSystemCommand('time hadoop jar /usr/hdp/2.6.3.0-235/hadoop-mapreduce/hadoop-mapreduce-examples.jar teravalidate '+' '.join(['='.join([key,options[key]]) for key in options.keys()])+' /teraOutput /teraValidate','_'.join([setname,'teravalidate']))
+	runSystemCommand('time hadoop jar {}/hadoop-mapreduce-examples.jar teravalidate '.format(jarloc)+' '.join(['='.join([key,options[key]]) for key in options.keys()])+' /teraOutput /teraValidate','_'.join([setname,'teravalidate']))
 	logger.info('-Finished teravalidate for '+setname)
 
 def runTestDFSIO():
 	logger.info('+Running TestDFSIO')
-	runSystemCommand('time hadoop jar /usr/hdp/2.6.3.0-235/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-tests.jar TestDFSIO -write -nrFiles 10 -fileSize 1000','writeDFS')
-	runSystemCommand('time hadoop jar /usr/hdp/2.6.3.0-235/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-tests.jar TestDFSIO -read -nrFiles 10 -fileSize 1000','readDFS')
-	runSystemCommand('time hadoop jar /usr/hdp/2.6.3.0-235/hadoop-mapreduce/hadoop-mapreduce-client-jobclient-tests.jar TestDFSIO -clean','cleanDFS')
+	runSystemCommand('time hadoop jar {}/hadoop-mapreduce-client-jobclient-tests.jar TestDFSIO -write -nrFiles 10 -fileSize 1000'.format(jarloc),'writeDFS')
+	runSystemCommand('time hadoop jar {}/hadoop-mapreduce-client-jobclient-tests.jar TestDFSIO -read -nrFiles 10 -fileSize 1000'.format(jarloc),'readDFS')
+	runSystemCommand('time hadoop jar {}/hadoop-mapreduce-client-jobclient-tests.jar TestDFSIO -clean'.format(jarloc),'cleanDFS')
 	logger.info('-Finished TestDFSIO')
 
 
 if __name__ == '__main__':
 	runTestDFSIO()
-	for setting in json.loads(open('benchmarkinput.json','r+').read())['wrap']['settings']:
+	params=json.loads(open('benchmarkinput.json','r+').read())
+	for setting in params['wrap']['settings']:
 		setname=setting['name']
 		cleanTeraGenInput()
-		runTeraGen(setname,setting['teragen'])
-		runTeraSort(setname,setting['terasort'])
-		runTeraValidate(setname,setting['teravalidate'])
+		runTeraGen(setname,params['wrap']['jarslocation'],setting['teragen'])
+		runTeraSort(setname,params['wrap']['jarslocation'],setting['terasort'])
+		runTeraValidate(setname,params['wrap']['jarslocation'],setting['teravalidate'])
 	cleanTeraGenInput()
 		
 

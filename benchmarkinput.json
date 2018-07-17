@@ -51,5 +51,6 @@
 				}
 			}
 		]
-	}
+	},
+	"jarslocation":"/usr/hdp/2.6.3.0-235/hadoop-mapreduce"
 }
